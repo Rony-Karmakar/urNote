@@ -18,12 +18,15 @@ app.use(cors({
 
 import authRouter from "./routes/auth.routes.js"
 import healthCheckRouter from "./routes/healthCheck.routes.js"
+import notesRouter from "./routes/notes.routes.js"
 
 app.use("/api/v1/healthcheck", healthCheckRouter)
 
 app.use("/api/v1/auth", authRouter)
 
-app.get('/', (req, res) => {
+app.use("api/v1/notes", notesRouter)
+
+app.get("/", (req, res) => {
     res.send("Welcome to basecampy")
 })
 
