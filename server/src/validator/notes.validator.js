@@ -8,6 +8,28 @@ const getNoteValidator = () => {
     ]
 }
 
+const updateNoteValidator = () => {
+    return [
+        param("noteId")
+            .isMongoId()
+            .withMessage("Invalid note ID"),
+        body("title")
+            .optional()
+            .isString()
+            .trim()
+            .isLength({ max: 100 }),
+        body("content")
+            .optional()
+            .isString(),
+        body("tags")
+            .optional()
+            .isArray(),
+        body("isPrivate")
+            .optional()
+            .isBoolean(),
+    ]
+}
+
 const deleteNoteValidator = () => {
     return [
         param("noteId")
@@ -16,4 +38,4 @@ const deleteNoteValidator = () => {
     ]
 }
 
-export { getNoteValidator, deleteNoteValidator }
+export { getNoteValidator, updateNoteValidator, deleteNoteValidator }

@@ -69,6 +69,39 @@ const getNote = asyncHandler(async (req, res) => {
         )
 })
 
+const updateNote = asyncHandler(async (req, res) => {
+    const { noteId } = req.params;
+    const { title, content, tags, isPrivate } = req.body;
+
+    const note = await Note.findById(noteId);
+
+    if (!note) {
+        throw new ApiError(404, "Note not found");
+    }
+
+    if (note.userId.toString() !== req.user._id.toString()) {
+        throw new ApiError(403, "Not authorized to edit this note");
+    }
+
+    note.title = title ?? note.title;
+    note.content = content ?? note.content;
+    note.tags = tags ?? note.tags;
+    note.isPrivate = isPrivate ?? note.isPrivate;
+
+    await note.save({ validateBeforeSave: false })
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                {},
+                "Note updated successfully"
+            )
+        );
+
+})
+
 const deleteNote = asyncHandler(async (req, res) => {
     const { noteId } = req.params;
 
@@ -95,4 +128,4 @@ const deleteNote = asyncHandler(async (req, res) => {
         )
 })
 
-export { createNote, getAllNotes, getNote, deleteNote }
+export { createNote, getAllNotes, getNote, updateNote, deleteNote }
