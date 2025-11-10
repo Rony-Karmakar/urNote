@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import SigninFrom from "./components/SigninFrom"
 
 const Signin = () => {
@@ -7,6 +8,7 @@ const Signin = () => {
                 <SigninFrom onSubmit={(data) => {
                     console.log(data)
                 }} />
+                <div className="flex items-center justify-center text-sm pt-2">New to urNote?<Link className="pl-1 text-gray-700 font-bold" to="/signup">sign up</Link></div>
             </div>
         </div>
     )
