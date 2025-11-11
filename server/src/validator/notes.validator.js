@@ -1,4 +1,4 @@
-import { param } from "express-validator";
+import { param, body } from "express-validator";
 
 const getNoteValidator = () => {
     return [

@@ -1,7 +1,7 @@
-import { Note } from "../model/notes.model";
-import { ApiError } from "../utils/api-error";
-import { ApiResponse } from "../utils/api-response";
-import { asyncHandler } from "../utils/asyncHandler";
+import { Note } from "../model/notes.model.js";
+import { ApiError } from "../utils/api-error.js";
+import { ApiResponse } from "../utils/api-response.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createNote = asyncHandler(async (req, res) => {
 
