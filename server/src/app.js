@@ -11,7 +11,7 @@ app.use(cookieParser())
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:5173",
-    creadentials: true,
+    credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }))
@@ -24,7 +24,7 @@ app.use("/api/v1/healthcheck", healthCheckRouter)
 
 app.use("/api/v1/auth", authRouter)
 
-app.use("api/v1/notes", notesRouter)
+app.use("/api/v1/notes", notesRouter)
 
 app.get("/", (req, res) => {
     res.send("Welcome to basecampy")

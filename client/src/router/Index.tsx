@@ -18,8 +18,8 @@ export const router = createBrowserRouter([
     {
         element: <Layout />,                // Layout wraps these pages
         children: [
-            { path: "/homepage", element: <Home /> },
-            { path: "/notes/:id", element: <Note /> },
+            { path: "/app", element: <Home /> },
+            { path: "/app/notes/:id", element: <Note /> },
         ],
     },
     // Pages without Layout (like auth pages)

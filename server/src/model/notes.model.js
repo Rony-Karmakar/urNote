@@ -13,13 +13,13 @@ const noteSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        required: true,
         default: ""
     },
     tags: [
         {
             type: String,
             trim: true,
+            default: []
         },
     ],
     isPrivate: {

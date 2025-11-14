@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import type { ReactNode } from "react"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, BookOpen, DollarSign } from "lucide-react"
 
 const Hero = (): ReactNode => {
     return (
@@ -18,8 +18,8 @@ const Hero = (): ReactNode => {
                 Save ideas before they disappear. Keep your thoughts organized and always within reach.
             </div>
             <div className="flex mt-2 sm:mt-4 md:mt-6 justify-around gap-5">
-                <Button>Get Started</Button>
-                <Button>Premium</Button>
+                <Button>Get Started <span className="gap-2"><BookOpen /></span></Button>
+                <Button>Premium <span className="gap-2"><DollarSign /></span></Button>
             </div>
         </div>
     )

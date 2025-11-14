@@ -4,9 +4,14 @@ import { ApiResponse } from "../utils/api-response.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createNote = asyncHandler(async (req, res) => {
+    const { title, content, tags, isPrivate } = req.body || {};
 
     const note = await Note.create({
-        userId: req.user?._id
+        userId: req.user?._id,
+        title,
+        content,
+        tags,
+        isPrivate
     })
 
     if (!note) {

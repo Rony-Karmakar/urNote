@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, FileText, Star, Trash } from "lucide-react";
 
 export default function Sidebar() {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     return (
         <aside
