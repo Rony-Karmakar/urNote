@@ -1,9 +1,18 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Menu, FileText, Star, Trash } from "lucide-react";
+import { Menu, FileText, Notebook } from "lucide-react";
+import { useAuthStore } from "@/store/authStore";
+import { getNotes } from "@/services/notesApi";
+import { useNoteStore } from "@/store/noteStore";
 
 export default function Sidebar() {
+    const { isLoggedIn } = useAuthStore.getState()
+    const { notes } = useNoteStore.getState()
     const [collapsed, setCollapsed] = useState(true);
+
+    useEffect(() => {
+        getNotes()
+    }, [])
 
     return (
         <aside
@@ -11,7 +20,8 @@ export default function Sidebar() {
       ${collapsed ? "w-16" : "w-64"}`}
         >
             {/* Collapse Button */}
-            <div className="p-3 border-b flex justify-end">
+            <div className={`p-3 border-b flex items-center ${collapsed ? "justify-end" : "justify-between"}`}>
+                {!collapsed && <div>Ron</div>}
                 <button
                     onClick={() => setCollapsed(!collapsed)}
                     className="p-2 hover:bg-muted rounded-md"
@@ -22,24 +32,18 @@ export default function Sidebar() {
 
             {/* Sidebar Links */}
             <nav className="flex flex-col gap-1 p-3">
-                <NavItem
-                    to="/"
-                    icon={<FileText className="w-5" />}
-                    label="All Notes"
-                    collapsed={collapsed}
-                />
-                <NavItem
-                    to="/favorites"
-                    icon={<Star className="w-5" />}
-                    label="Favorites"
-                    collapsed={collapsed}
-                />
-                <NavItem
-                    to="/trash"
-                    icon={<Trash className="w-5" />}
-                    label="Trash"
-                    collapsed={collapsed}
-                />
+
+                {
+                    notes.map((note) =>
+                        <NavItem
+                            key={note._id}
+                            to={`/app/notes/${note._id}`}
+                            icon={<FileText className="w-5" />}
+                            label={note.title ?? "New Note"}
+                            collapsed={collapsed}
+                        />)
+                }
+
             </nav>
         </aside>
     );
@@ -47,12 +51,12 @@ export default function Sidebar() {
 
 type NavItemType = {
     to: string,
-    icon: ReactNode,
+    icon?: ReactNode,
     label: string,
     collapsed: boolean
 }
 
-function NavItem({ to, icon, label, collapsed }: NavItemType) {
+function NavItem({ to, icon = <Notebook />, label, collapsed }: NavItemType) {
     return (
         <Link
             to={to}
