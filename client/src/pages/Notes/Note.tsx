@@ -1,3 +1,4 @@
+import NoteEditor from "@/pages/Notes/components/Editor";
 import { getSpecificNote } from "@/services/notesApi";
 import type { Note } from "@/types/note";
 import { useEffect, useState } from "react";
@@ -25,7 +26,12 @@ const Note = () => {
     }, [id])
 
     return (
-        <div>{note?.title}</div>
+        <div className="p-4">
+            <NoteEditor
+                note={note}
+                setNote={setNote}
+            />
+        </div>
     )
 }
 

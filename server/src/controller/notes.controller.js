@@ -76,7 +76,7 @@ const getNote = asyncHandler(async (req, res) => {
 
 const updateNote = asyncHandler(async (req, res) => {
     const { noteId } = req.params;
-    const { title, content, tags, isPrivate } = req.body;
+    const { title, content, tags, isPrivate } = req.body || {};
 
     const note = await Note.findById(noteId);
 
@@ -100,7 +100,9 @@ const updateNote = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                {},
+                {
+                    note
+                },
                 "Note updated successfully"
             )
         );
