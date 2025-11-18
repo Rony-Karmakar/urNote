@@ -13,6 +13,15 @@
   }
 }
 
+.btn {
+  @apply px-2 py-1 border rounded text-sm bg-white hover:bg-gray-100;
+}
+
+.btn-active {
+  @apply bg-gray-200 font-bold;
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

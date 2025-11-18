@@ -3,7 +3,11 @@ import { updateNote } from "@/services/notesApi";
 import type { Note } from "@/types/note";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { TextStyle } from "@tiptap/extension-text-style"
+import Color from "@tiptap/extension-color"
+import Highlight from "@tiptap/extension-highlight"
 import { useEffect } from "react";
+import MenuBar from "./MenuBar";
 
 export default function NoteEditor({ note, setNote }: { note: Note | null, setNote: React.Dispatch<React.SetStateAction<Note | null>> }) {
     const autoSave = useAutoSave(updateNote, 1200)
@@ -16,7 +20,13 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
                     },
                 },
             }),
-
+            TextStyle,
+            Color.configure({
+                types: ['textStyle']
+            }),
+            Highlight.configure({
+                multicolor: true
+            })
         ],
         content: note?.content || "",
         autofocus: false,
@@ -28,7 +38,6 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
         onUpdate: ({ editor }) => {
             const html = editor.getHTML();
             handleChange(html)
-
         },
     });
 
@@ -64,6 +73,7 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
             />
 
             <EditorContent editor={contentEditor} />
+            <MenuBar editor={contentEditor} />
         </div>
     );
 }
