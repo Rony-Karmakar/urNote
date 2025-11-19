@@ -7,7 +7,7 @@ import { TextStyle } from "@tiptap/extension-text-style"
 import Color from "@tiptap/extension-color"
 import Highlight from "@tiptap/extension-highlight"
 import { useEffect } from "react";
-import MenuBar from "./MenuBar";
+import BubbleMenuBar from "./BubbleMenuBar";
 
 export default function NoteEditor({ note, setNote }: { note: Note | null, setNote: React.Dispatch<React.SetStateAction<Note | null>> }) {
     const autoSave = useAutoSave(updateNote, 1200)
@@ -36,17 +36,22 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
             }
         },
         onUpdate: ({ editor }) => {
-            const html = editor.getHTML();
-            handleChange(html)
+            handleChange(editor.getHTML())
         },
     });
 
     const handleChange = (html = note?.content) => {
-        setNote((prev) =>
-            prev ? { ...prev, content: html } : null
-        );
-        autoSave(note)
-    }
+        setNote(prev => {
+            if (!prev) return prev;
+
+            const updated = { ...prev, content: html };
+
+            autoSave(updated); // ✔ always save the new version
+
+            return updated;
+        });
+    };
+
 
     useEffect(() => {
         if (!contentEditor) return;
@@ -63,17 +68,19 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
             <input
                 type="text"
                 value={note?.title || ""}
-                onChange={(e) =>
+                onChange={(e) => {
                     setNote((prev) =>
                         prev ? { ...prev, title: e.target.value } : null
                     )
+                    handleChange()
+                }
                 }
                 placeholder="New Page"
                 className="w-full h-full text-4xl font-semibold outline-none pb-6 placeholder:text-gray-400"
             />
 
             <EditorContent editor={contentEditor} />
-            <MenuBar editor={contentEditor} />
+            <BubbleMenuBar editor={contentEditor} />
         </div>
     );
 }
