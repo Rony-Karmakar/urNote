@@ -3,6 +3,7 @@ import { updateNote } from "@/services/notesApi";
 import type { Note } from "@/types/note";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Heading from '@tiptap/extension-heading'
 import { TextStyle } from "@tiptap/extension-text-style"
 import Color from "@tiptap/extension-color"
 import Highlight from "@tiptap/extension-highlight"
@@ -14,11 +15,15 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
     const contentEditor = useEditor({
         extensions: [
             StarterKit.configure({
+                heading: false,
                 paragraph: {
                     HTMLAttributes: {
                         style: "white-space: pre-wrap;",
                     },
                 },
+            }),
+            Heading.configure({
+                levels: [1, 2, 3]
             }),
             TextStyle,
             Color.configure({
@@ -56,6 +61,7 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
     useEffect(() => {
         if (!contentEditor) return;
         if (note?.content == null) return;
+        console.log(contentEditor?.extensionManager.extensions.map(e => e.name))
 
         if (contentEditor.getHTML() === note.content) return;
         contentEditor.commands.setContent(note.content);
