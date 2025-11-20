@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react"
 import { BubbleMenu } from '@tiptap/react/menus'
-import { Bold, ChevronDown, Code, Italic, Strikethrough, Underline, Type, ALargeSmall, AArrowUp } from "lucide-react"
+import { Bold, ChevronDown, Code, Italic, Strikethrough, Underline } from "lucide-react"
 import { useState } from "react"
 import ColorPellete from "./colorPellete"
 import { useMyEditorState } from "@/hooks/editorState"
