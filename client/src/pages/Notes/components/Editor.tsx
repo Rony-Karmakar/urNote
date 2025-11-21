@@ -4,6 +4,8 @@ import type { Note } from "@/types/note";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Heading from '@tiptap/extension-heading'
+import TaskList from "@tiptap/extension-task-list";
+import TaskItem from "@tiptap/extension-task-item";
 import { TextStyle } from "@tiptap/extension-text-style"
 import Color from "@tiptap/extension-color"
 import Highlight from "@tiptap/extension-highlight"
@@ -21,6 +23,11 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
                         style: "white-space: pre-wrap;",
                     },
                 },
+                bulletList: false,
+            }),
+            TaskList,
+            TaskItem.configure({
+                nested: false
             }),
             Heading.configure({
                 levels: [1, 2, 3]

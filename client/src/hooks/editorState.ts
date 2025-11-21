@@ -61,6 +61,9 @@ export function useMyEditorState(editor: Editor) {
                 isCodeBlock: ctx.editor.isActive("codeBlock") ?? false,
                 isBlockquote: ctx.editor.isActive("blockquote") ?? false,
 
+                isTaskList: ctx.editor.isActive("taskList") ?? false,
+                canToggleTaskList: ctx.editor.can().chain().toggleTaskList().run() ?? false,
+
                 // HISTORY
                 canUndo: ctx.editor.can().chain().undo().run() ?? false,
                 canRedo: ctx.editor.can().chain().redo().run() ?? false,

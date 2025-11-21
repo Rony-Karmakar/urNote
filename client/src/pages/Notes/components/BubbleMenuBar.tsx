@@ -29,7 +29,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
                         <ChevronDown className="h-4 w-3" />
                     </button>
                 </div>
-                {textup && <TextOptions editor={editor} editorState={{ isParagraph: editorState.isParagraph, isHeading1: editorState.isHeading1, isHeading2: editorState.isHeading2, isHeading3: editorState.isHeading3, isBulletList: editorState.isBulletList, isOrderedList: editorState.isOrderedList }} />}
+                {textup && <TextOptions editor={editor} editorState={{ isParagraph: editorState.isParagraph, isHeading1: editorState.isHeading1, isHeading2: editorState.isHeading2, isHeading3: editorState.isHeading3, isBulletList: editorState.isBulletList, isOrderedList: editorState.isOrderedList, isTaskList: editorState.isTaskList, canToggleTaskList: editorState.canToggleTaskList }} />}
 
 
                 {/* Bold */}

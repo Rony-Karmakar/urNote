@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Menu, FileText } from "lucide-react";
 import { getNotes } from "@/services/notesApi";
 import { useNoteStore } from "@/store/noteStore";

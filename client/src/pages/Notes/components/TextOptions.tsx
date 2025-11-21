@@ -3,7 +3,7 @@ import { Editor } from '@tiptap/react'
 import { Heading1, Heading2, Heading3, List, ListOrdered, Type } from 'lucide-react'
 
 
-type editorColorState = Pick<ReturnType<typeof useMyEditorState>, "isParagraph" | "isHeading1" | "isHeading2" | "isHeading3" | "isBulletList" | "isOrderedList">
+type editorColorState = Pick<ReturnType<typeof useMyEditorState>, "isParagraph" | "isHeading1" | "isHeading2" | "isHeading3" | "isBulletList" | "isOrderedList" | "isTaskList" | "canToggleTaskList">
 
 const TextOptions = ({ editorState, editor }: { editorState: editorColorState, editor: Editor }) => {
     return (
@@ -45,6 +45,14 @@ const TextOptions = ({ editorState, editor }: { editorState: editorColorState, e
             >
                 <ListOrdered className='w-5 h-5' /><span className='text-xs pl-2'>Numbered List</span>
             </button>
+            <button
+                onClick={() => editor.chain().focus().toggleTaskList().run()}
+                disabled={!editorState.canToggleTaskList}
+                className={`px-2 py-1 rounded flex items-center ${editorState.isTaskList ? "bg-gray-300 text-black font-semibold" : "hover:bg-gray-200"}`}
+            >
+                ✓ Task List
+            </button>
+
         </div>
     )
 }
