@@ -4,7 +4,7 @@ import type { Note } from "@/types/note";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 
-const Note = () => {
+const NoteDetail = () => {
     const { id } = useParams();
     const [note, setNote] = useState<Note | null>(null)
 
@@ -35,4 +35,4 @@ const Note = () => {
     )
 }
 
-export default Note
+export default NoteDetail

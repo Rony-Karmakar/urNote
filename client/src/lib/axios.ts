@@ -11,6 +11,7 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             // Token expired → logout
+            console.log("Expired")
             useAuthStore.getState().logout();
             window.location.href = "/signin";
         }

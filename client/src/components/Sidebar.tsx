@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Menu, FileText } from "lucide-react";
+import { Menu, FileText, Home, Search, Plus, Ellipsis } from "lucide-react";
 import { getNotes } from "@/services/notesApi";
 import { useNoteStore } from "@/store/noteStore";
 import NavItem from "./NavItem";
@@ -70,6 +70,30 @@ export default function Sidebar({ mobileOpen, onMobileClose, collapsed, setColla
 
                 {/* Nav items */}
                 <nav className="flex flex-col gap-1 px-2 py-3 overflow-y-auto h-[calc(100vh-44px)]">
+                    <div className="mb-5">
+                        <NavItem
+                            to={"/app"}
+                            icon={<Search className="w-5" />}
+                            label={"Search"}
+                            collapsed={collapsedForNav} // labels hide only when desktop-collapsed
+                        />
+                        <NavItem
+                            to={"/app"}
+                            icon={<Home className="w-5" />}
+                            label={"Home"}
+                            collapsed={collapsedForNav} // labels hide only when desktop-collapsed
+                        />
+                    </div>
+
+                    <div className="flex justify-between relative group items-center px-3 hover:bg-muted rounded-md transition">
+                        Private
+                        <div className="absolute right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
+                            <Ellipsis className="size-3" />
+                            <Plus className="size-3" />
+                        </div>
+                    </div>
+
+
                     {notes.map((note) => (
                         <NavItem
                             key={note._id}

@@ -4,7 +4,7 @@ import Layout from "../components/MainLayout"
 import Home from "../pages/Home/HomePage"
 import Signin from "../pages/SignIn/SigninPage"
 import Signup from "../pages/Signup/SignupPage"
-import Note from "../pages/Notes/Note"
+import NoteDetail from "../pages/Notes/Note"
 import LandingLayout from "@/components/LandingLayout"
 import Landing from "@/pages/Landing/LandingPage"
 
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         element: <Layout />,                // Layout wraps these pages
         children: [
             { path: "/app", element: <Home /> },
-            { path: "/app/notes/:id", element: <Note /> },
+            { path: "/app/notes/:id", element: <NoteDetail /> },
         ],
     },
     // Pages without Layout (like auth pages)
