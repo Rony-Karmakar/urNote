@@ -11,6 +11,7 @@ export async function signIn(data: signInDatatype) {
     try {
         const res = await axiosInstance.post('/auth/login', data)
         login(res.data.data.user)
+        console.log(useAuthStore.getState().user)
         return res.data;
     } catch (err) {
         console.log("Error in auth callback", err);

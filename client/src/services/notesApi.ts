@@ -29,3 +29,11 @@ export async function updateNote(note: Note | null) {
         console.log("Error while fetching the notes", err);
     }
 }
+
+export async function createNote() {
+    try {
+        const res = await axiosInstance.post('/notes')
+    } catch (err) {
+        console.log("Error while creating the notes", err);
+    }
+}

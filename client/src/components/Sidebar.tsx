@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Menu, FileText, Home, Search, Plus, Ellipsis } from "lucide-react";
-import { getNotes } from "@/services/notesApi";
+import { getNotes, createNote } from "@/services/notesApi";
 import { useNoteStore } from "@/store/noteStore";
 import NavItem from "./NavItem";
+import { useAuthStore } from "@/store/authStore";
 
 type SidebarProps = {
     mobileOpen: boolean;
@@ -13,6 +14,9 @@ type SidebarProps = {
 
 export default function Sidebar({ mobileOpen, onMobileClose, collapsed, setCollapsed }: SidebarProps) {
     const notes = useNoteStore((state) => state.notes);
+    const email = useAuthStore.getState().user?.email;
+    const user = useAuthStore((state) => state.user)
+    console.log(user)
 
     useEffect(() => {
         getNotes();
@@ -55,7 +59,7 @@ export default function Sidebar({ mobileOpen, onMobileClose, collapsed, setColla
                     {/* Username / logo (hidden when fully collapsed on desktop) */}
                     {!isCollapsedForDesktop && (
                         <div className="hidden md:block text-sm font-medium">
-                            Ron
+                            {email}
                         </div>
                     )}
 
@@ -89,7 +93,11 @@ export default function Sidebar({ mobileOpen, onMobileClose, collapsed, setColla
                         Private
                         <div className="absolute right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
                             <Ellipsis className="size-3" />
-                            <Plus className="size-3" />
+                            <Plus onClick={() => {
+                                createNote()
+                                getNotes()
+                            }}
+                                className="size-3" />
                         </div>
                     </div>
 

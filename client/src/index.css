@@ -133,6 +133,17 @@ ul[data-type="taskList"] li input[type="checkbox"] {
   /* center vertically */
 }
 
+.block {
+  padding: 4px 0;
+  position: relative;
+}
+
+.hover-menu {
+  display: flex;
+  gap: 4px;
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

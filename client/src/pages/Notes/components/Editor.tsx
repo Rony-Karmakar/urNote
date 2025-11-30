@@ -11,34 +11,26 @@ import Color from "@tiptap/extension-color"
 import Highlight from "@tiptap/extension-highlight"
 import { useEffect } from "react";
 import BubbleMenuBar from "./BubbleMenuBar";
+import { NodeBlockExtension } from "@/extensions/nodeBlock";
 
 export default function NoteEditor({ note, setNote }: { note: Note | null, setNote: React.Dispatch<React.SetStateAction<Note | null>> }) {
     const autoSave = useAutoSave(updateNote, 1200)
     const contentEditor = useEditor({
         extensions: [
             StarterKit.configure({
+                paragraph: false,
                 heading: false,
-                paragraph: {
-                    HTMLAttributes: {
-                        style: "white-space: pre-wrap;",
-                    },
-                },
                 bulletList: false,
             }),
+
+            NodeBlockExtension, // <-- NOW WORKS
+
             TaskList,
-            TaskItem.configure({
-                nested: false
-            }),
-            Heading.configure({
-                levels: [1, 2, 3]
-            }),
+            TaskItem.configure({ nested: false }),
+            Heading.configure({ levels: [1, 2, 3] }),
             TextStyle,
-            Color.configure({
-                types: ['textStyle']
-            }),
-            Highlight.configure({
-                multicolor: true
-            })
+            Color.configure({ types: ['textStyle'] }),
+            Highlight.configure({ multicolor: true }),
         ],
         content: note?.content || "",
         autofocus: false,
@@ -48,21 +40,28 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
             }
         },
         onUpdate: ({ editor }) => {
-            handleChange(editor.getHTML())
+            updateContent(editor.getHTML())
         },
     });
 
-    const handleChange = (html = note?.content) => {
+    const updateContent = (html: string) => {
         setNote(prev => {
             if (!prev) return prev;
-
             const updated = { ...prev, content: html };
-
-            autoSave(updated); // ✔ always save the new version
-
+            autoSave(updated);
             return updated;
         });
     };
+
+    const updateTitle = (title: string) => {
+        setNote(prev => {
+            if (!prev) return prev;
+            const updated = { ...prev, title };
+            autoSave(updated);
+            return updated;
+        });
+    };
+
 
 
     useEffect(() => {
@@ -85,7 +84,7 @@ export default function NoteEditor({ note, setNote }: { note: Note | null, setNo
                     setNote((prev) =>
                         prev ? { ...prev, title: e.target.value } : null
                     )
-                    handleChange()
+                    updateTitle(e.target.value)
                 }
                 }
                 placeholder="New Page"
